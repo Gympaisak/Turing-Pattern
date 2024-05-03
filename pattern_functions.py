@@ -1,5 +1,6 @@
 
 import numpy as np
+import math
 
 #Initial condition functions:
 
@@ -151,6 +152,32 @@ def GrayScott(U,V,reactionDiffusionConstants):
 def Linear(U, V,reactionDiffusionConstans):
     if (reactionDiffusionConstans==1):
         a = 1.5; b = -2; c = 2; d = -2 ; DU = 1; DV = 40 #Amandas constants?
+    elif (reactionDiffusionConstans==2): #Trying to use Alan Turings constants.
+        # I=1, N=10, p=1 fick jag mönster för men värdena blev enorma.
+        # I=1, N=1, p=1 Mönstret blev mindre med N mindre. Jag fick mönster men värdena blev enorma.
+        # I=3, N=10, p=1 fick jag mönster för men värdena blev INF!
+        # I=1, N=10, p=4 Mönstret blev mindre med större p. fick jag mönster för men värdena blev enorma.
+        I = 1
+        N = 10 #ska va antal celler i ringen?
+        p = 1 #Ska vara radien på ringen?
+
+        a = I - 2
+        b = 2.5
+        c = -1.25
+        d = I + +1.5
+        DUprick = 1
+        DVprick = 1/2
+        DU = (N/(2*math.pi*p))**(2)*DUprick
+        DV = (N/(2*math.pi*p))**(2)*DVprick
+
+    elif (reactionDiffusionConstans==3):
+        DU = 1/4
+        DV = 1/4
+        a = 1
+        b = 1
+        c = 1
+        d = a
+
 
     #a = 1; b = 1; c = b; d = a; DU = 1/4; DV = 1/4 #Makes no pattern and the concentration of U increases exponentially
     #a = 1; b = 1; c = -b; d = a; DU = 1/4; DV = 1/4  #Same as above
